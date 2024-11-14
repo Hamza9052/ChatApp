@@ -81,4 +81,8 @@ dependencies {
     // optional - Paging 3 Integration
     implementation(libs.androidx.room.paging)
 
+
+    //icons
+    implementation ("androidx.compose.material:material-icons-extended:1.7.5")
+
 }
