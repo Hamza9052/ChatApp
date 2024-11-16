@@ -8,25 +8,36 @@ import com.hamza.chatapproom.DataRoom.Entity_Info.User
 @Dao
 interface userdao {
     @Query("SELECT * FROM User")
-    fun getAllUser():List<User>
+   suspend fun getAllUser():List<User>
 
     /**
      * we put IN for list or set
      */
     @Query("SELECT * FROM User WHERE uid IN (:userIds)")
-    fun Documents(userIds:IntArray):List<User>
+    suspend fun Documents(userIds:IntArray):List<User>
 
     /**
      *we put =(equal) for single value
      */
     @Query("SELECT * FROM User Where Email = :mail AND password = :SecretWord")
-    fun userLogin(mail: String, SecretWord: String): User
+    suspend fun userLogin(mail: String, SecretWord: String): User
+
+
+    @Query("SELECT full_name From user")
+    suspend fun allUserNames():List<String>
+
 
     // vararg it's can use if you want to pass
     // list of value to fun without having to explicitly
     // create a collection (like an array or list)
     @Insert()
-    fun insert(vararg user:User)
+    suspend fun insert(vararg user:User)
 
 
+    /**
+     * Check Email is it excited or not
+     */
+
+    @Query("SELECT Email FROM User Where Email = :check")
+    suspend fun checkEmail(check: String):String?
 }
