@@ -53,6 +53,10 @@ import com.hamza.chatapproom.ViewModel.DataViewModel
 //import com.hamza.test.Event.UserEvent
 
 
+/**
+ * author:Hamza Ouaissa
+ **/
+
 
 
 @Composable
@@ -181,7 +185,7 @@ fun Login(
 
         ) {
             Text(
-                text = "Log In",
+                text = "Sign In",
                 fontWeight = FontWeight.Bold,
                 fontSize = 18.sp,
                 color = colorResource(R.color.BurlyWood)
@@ -215,7 +219,7 @@ fun Login(
 
         ) {
             Text(
-                text = "Create new account",
+                text = "Sign Upt",
                 fontWeight = FontWeight.Bold,
                 fontSize = 18.sp,
                 color = colorResource(R.color.BurlyWood)

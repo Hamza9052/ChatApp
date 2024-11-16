@@ -48,10 +48,14 @@ import com.hamza.chatapproom.ViewModel.DataViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.coroutineScope
 
+/**
+ * author:Hamza Ouaissa
+ **/
+
 @Composable
 fun Create_Account(
     navController: NavController,
-    onEvent:(userEvent)-> Unit
+    onEvent: DataViewModel
 ){
     var showPassword by remember { mutableStateOf(value = false) }
     var user by remember {
@@ -91,7 +95,7 @@ fun Create_Account(
             value = user.Fullname ,
             onValueChange ={
                 user = user.copy(
-                    Fullname = it
+                    Fullname =it
                 )
             },label = {
                 Text(
@@ -207,12 +211,15 @@ fun Create_Account(
                         Toast.LENGTH_SHORT).show().toString()
 
                 }else {
+                    onEvent.onEvent(userEvent.CreateAccount(user = user){state->
+                        if (state){
+                            navController.navigate(Screen.Login.Route)
+                            Toast.makeText(navController.context,"SignUp Is Success", Toast.LENGTH_SHORT).show()
+                        }else{
+                            Toast.makeText(navController.context,"SignUp Is Failed", Toast.LENGTH_SHORT).show()
+                        }
 
-                        onEvent(userEvent.CreateAccount(user))
-
-
-
-
+                    })
 
                 }
             },
@@ -224,7 +231,7 @@ fun Create_Account(
 
         ) {
             Text(
-                text = "Create Account",
+                text = "Sign Up",
                 fontWeight = FontWeight.Bold,
                 fontSize = 18.sp,
                 color = colorResource(R.color.BurlyWood)
@@ -252,7 +259,7 @@ fun Create_Account(
 
         ) {
             Text(
-                text = "Log In",
+                text = "Sign In",
                 fontWeight = FontWeight.Bold,
                 fontSize = 18.sp,
                 color = colorResource(R.color.BurlyWood)

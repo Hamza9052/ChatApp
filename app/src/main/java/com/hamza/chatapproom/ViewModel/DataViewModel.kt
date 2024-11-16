@@ -1,28 +1,19 @@
 package com.hamza.chatapproom.ViewModel
 
-import android.app.Application
-import android.content.Context
 import android.util.Log
-import android.widget.Toast
-import androidx.compose.runtime.LaunchedEffect
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.room.Room
 import com.hamza.chatapproom.DataRoom.Entity_Info.User
 import com.hamza.chatapproom.DataRoom.UserDao.userdao
 import com.hamza.chatapproom.UserEvent.userEvent
 import com.hamza.chatapproom.UserInfo.info
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-
+/**
+ * author:Hamza Ouaissa
+ **/
 
 class DataViewModel(private val dao: userdao): ViewModel() {
-
 
     private val _state = MutableStateFlow(info())
 
@@ -35,28 +26,24 @@ class DataViewModel(private val dao: userdao): ViewModel() {
             is userEvent.SignOut -> {
 
             }
-            is userEvent.CreateAccount -> {
-                val infoUser = User(Fullname = _state.value.Fullname, Email = _state.value.email, Passwrod = _state.value.password)
-                viewModelScope.launch {
-                  if (dao.checkEmail(_state.value.email) == null) {
-                      dao.insert(infoUser)
-                      Log.e("create_Account","Create Account is successful")
-                    }else{
-                        Log.e("create_Account","this email is available")
-                    }
-                }
-            }
+            is userEvent.CreateAccount -> create_account(event.user,event.state)
         }
     }
 
+    fun create_account(user: info, state: (Boolean) -> Unit) {
 
-
-
-
-
-
-
-
+        viewModelScope.launch {
+            if (dao.checkEmail(user.email) == null) {
+                val infoUser = User(Fullname = user.Fullname, Email = user.email, Passwrod = user.password)
+                dao.insert(infoUser)
+                Log.e("create_Account","Create Account is successful")
+                state(true)
+            }else{
+                Log.e("create_Account","this email is available")
+                state(false)
+            }
+        }
+    }
 
 
 }

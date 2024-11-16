@@ -20,6 +20,17 @@ import com.hamza.chatapproom.ScreenRoute.Screen
 import com.hamza.chatapproom.ViewModel.DataViewModel
 import com.hamza.chatapproom.ui.theme.ChatAppDBTheme
 
+/**
+ *
+ * By the way this method of building instance
+ * it's not able with large or medium projects
+ * when you want to start with medium or large
+ * project u should use the Dagger Module
+ *
+ * author:Hamza Ouaissa
+ *
+ **/
+
 
 class MainActivity : ComponentActivity() {
 
@@ -57,7 +68,7 @@ class MainActivity : ComponentActivity() {
                     }
                     composable(
                         Screen.CreateAccount.Route){
-                        Create_Account(navController, onEvent = dataVM::onEvent)
+                        Create_Account(navController, onEvent = dataVM)
                     }
                 }
 
