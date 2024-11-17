@@ -46,7 +46,7 @@ class DataViewModel(private val dao: userdao): ViewModel() {
      fun login(user: info, state: (Boolean) -> Unit,) {
 
         viewModelScope.launch{
-            val use = dao.CHECK(user.email,user.password)
+            val use = dao.checkUser(user.email,user.password)
             if (use == true){
                 dao.userLogin(user.email,user.password)
                 state(true)

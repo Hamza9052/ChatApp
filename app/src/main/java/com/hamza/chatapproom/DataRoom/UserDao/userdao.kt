@@ -45,7 +45,7 @@ interface userdao {
      * Check email && password is it excited or not
      **/
     @Query("SELECT EXISTS(SELECT 1 FROM User WHERE Email == :checkEmail AND password == :checkPassword)")
-    suspend fun CHECK(checkEmail:String,checkPassword:String): Boolean
+    suspend fun checkUser(checkEmail:String,checkPassword:String): Boolean
 
 
 
