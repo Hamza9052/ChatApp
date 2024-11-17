@@ -84,7 +84,7 @@ dependencies {
     // optional - Paging 3 Integration
     implementation(libs.androidx.room.paging)
 
-
+    implementation (libs.androidx.material.icons.extended)
     ksp("androidx.room:room-compiler:2.5.0")
 
     //icons
