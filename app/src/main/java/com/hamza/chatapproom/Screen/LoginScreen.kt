@@ -1,6 +1,7 @@
 package com.hamza.chatapproom.Screen
 
 import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -47,6 +48,7 @@ import com.hamza.chatapproom.DataRoom.UserDao.userdao
 //import com.airbnb.lottie.compose.rememberLottieComposition
 import com.hamza.chatapproom.R
 import com.hamza.chatapproom.ScreenRoute.Screen
+import com.hamza.chatapproom.UserEvent.userEvent
 import com.hamza.chatapproom.UserInfo.info
 import com.hamza.chatapproom.ViewModel.DataViewModel
 
@@ -62,7 +64,7 @@ import com.hamza.chatapproom.ViewModel.DataViewModel
 @Composable
 fun Login(
     navController: NavController,
-
+    VM: DataViewModel
 ){
 
     var showPassword by remember { mutableStateOf(value = false) }
@@ -176,7 +178,16 @@ fun Login(
 
         Spacer(modifier = Modifier.weight(0.2f))
         Button(
-            onClick = {},
+            onClick = {
+                VM.onEvent(userEvent.Login(info,){state->
+                    if (state){
+                        Toast.makeText(navController.context,"LogIn Success", Toast.LENGTH_SHORT).show()
+                    }else{
+                        Toast.makeText(navController.context,"LogIn Failed", Toast.LENGTH_SHORT).show()
+                    }
+
+                })
+            },
             colors = ButtonDefaults.buttonColors(colorResource(R.color.DarkSlateBlue)),
             modifier = Modifier
                 .width(330.dp)
@@ -219,7 +230,7 @@ fun Login(
 
         ) {
             Text(
-                text = "Sign Upt",
+                text = "Sign Up",
                 fontWeight = FontWeight.Bold,
                 fontSize = 18.sp,
                 color = colorResource(R.color.BurlyWood)

@@ -3,7 +3,7 @@ package com.hamza.chatapproom.ViewModel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hamza.chatapproom.DataRoom.Entity_Info.User
+import com.hamza.chatapproom.DataRoom.UserDao.User
 import com.hamza.chatapproom.DataRoom.UserDao.userdao
 import com.hamza.chatapproom.UserEvent.userEvent
 import com.hamza.chatapproom.UserInfo.info
@@ -20,15 +20,13 @@ class DataViewModel(private val dao: userdao): ViewModel() {
 
     fun onEvent(event: userEvent){
         when(event){
-            is userEvent.Login -> {
-
-            }
-            is userEvent.SignOut -> {
-
-            }
+            is userEvent.Login -> login(event.user,event.state)
+            is userEvent.SignOut -> signout()
             is userEvent.CreateAccount -> create_account(event.user,event.state)
+
         }
     }
+
 
     fun create_account(user: info, state: (Boolean) -> Unit) {
 
@@ -44,6 +42,32 @@ class DataViewModel(private val dao: userdao): ViewModel() {
             }
         }
     }
+
+     fun login(user: info, state: (Boolean) -> Unit,) {
+
+        viewModelScope.launch{
+            val use = dao.CHECK(user.email,user.password)
+            if (use == true){
+                dao.userLogin(user.email,user.password)
+                state(true)
+                Log.e("LogIn","LogIn is successful")
+            }else{
+                state(false)
+                Log.e("LogIn","LogIn is Failed")
+            }
+
+        }
+
+    }
+
+
+
+     fun signout() {
+
+    }
+
+
+
 
 
 }

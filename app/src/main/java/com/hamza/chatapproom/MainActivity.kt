@@ -64,7 +64,7 @@ class MainActivity : ComponentActivity() {
 
                     composable(
                         Screen.Login.Route){
-                        Login(navController)
+                        Login(navController,dataVM)
                     }
                     composable(
                         Screen.CreateAccount.Route){

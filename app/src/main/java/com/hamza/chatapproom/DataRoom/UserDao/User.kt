@@ -1,9 +1,8 @@
-package com.hamza.chatapproom.DataRoom.Entity_Info
+package com.hamza.chatapproom.DataRoom.UserDao
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.hamza.chatapproom.UserInfo.info
 
 @Entity
 data class User(
