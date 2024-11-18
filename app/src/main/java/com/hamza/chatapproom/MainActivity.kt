@@ -16,6 +16,7 @@ import com.hamza.chatapproom.DataRoom.AppDatabase
 
 import com.hamza.chatapproom.Screen.Create_Account
 import com.hamza.chatapproom.Screen.Login
+import com.hamza.chatapproom.Screen.MainScreen
 import com.hamza.chatapproom.ScreenRoute.Screen
 import com.hamza.chatapproom.ViewModel.DataViewModel
 import com.hamza.chatapproom.ui.theme.ChatAppDBTheme
@@ -69,6 +70,10 @@ class MainActivity : ComponentActivity() {
                     composable(
                         Screen.CreateAccount.Route){
                         Create_Account(navController, onEvent = dataVM)
+                    }
+                    composable(
+                        Screen.MainScreen.Route){
+                        MainScreen(dataVM,navController)
                     }
                 }
 

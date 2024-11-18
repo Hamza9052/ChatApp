@@ -61,7 +61,7 @@ import com.hamza.chatapproom.ViewModel.DataViewModel
 @SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun MainScreen(
-    viewModel: DataViewModel,
+    VM: DataViewModel,
     navController: NavController,
 ) {
     val active by remember { mutableStateOf(false) }
@@ -78,10 +78,7 @@ fun MainScreen(
     ) {
 
 
-
-
-
-        Searchbar(active, viewModel, navController,showDialog)
+        Searchbar(active, VM, navController,showDialog)
 
         if (showDialog.value){
             Log.e("show","work")
@@ -101,10 +98,10 @@ fun MainScreen(
 
         LazyColumn(Modifier.fillMaxSize()) {
             //list of user
-            items(1) { item ->
-
-
-
+            items(VM.users.value.size) { item ->
+                val name = VM.users.value[item]
+                Spacer(modifier = Modifier.height(12.dp))
+                listItem(name,navController)
 
             }
         }
@@ -126,7 +123,7 @@ fun MainScreen(
 @Composable
 fun Searchbar(
     active: Boolean,
-    viewModel: DataViewModel,
+    VM: DataViewModel,
     navController: NavController,
     showDialog: MutableState<Boolean>,
 
@@ -187,16 +184,16 @@ fun Searchbar(
         ) {
 
 
-//            val size = viewModel.userlist.value.size
+//            val size = VM.userlist.value.size
 
 //            for (i in 0 until size) {
 //
-//                val users = viewModel.userlist.value.get(i)
+//                val users = VM.userlist.value.get(i)
 //                for (i in 0 until users.length) {
 //                    if (
 //                        users.contains(search) &&
 //                        search.isNotEmpty() &&
-//                        !viewModel.name.equals(users)
+//                        !VM.name.equals(users)
 //                    ) {
 //                        LazyColumn {
 //                            item {

@@ -182,6 +182,7 @@ fun Login(
                 VM.onEvent(userEvent.Login(info,){state->
                     if (state){
                         Toast.makeText(navController.context,"LogIn Success", Toast.LENGTH_SHORT).show()
+                        navController.navigate(Screen.MainScreen.Route)
                     }else{
                         Toast.makeText(navController.context,"LogIn Failed", Toast.LENGTH_SHORT).show()
                     }

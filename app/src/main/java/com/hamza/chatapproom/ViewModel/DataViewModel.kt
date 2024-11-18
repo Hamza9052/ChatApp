@@ -8,6 +8,8 @@ import com.hamza.chatapproom.DataRoom.UserDao.userdao
 import com.hamza.chatapproom.UserEvent.userEvent
 import com.hamza.chatapproom.UserInfo.info
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 /**
  * author:Hamza Ouaissa
@@ -16,6 +18,17 @@ import kotlinx.coroutines.launch
 class DataViewModel(private val dao: userdao): ViewModel() {
 
     private val _state = MutableStateFlow(info())
+
+    private var _user = MutableStateFlow(mutableListOf<String>())
+    val users: StateFlow<List<String>> = _user.asStateFlow()
+
+
+
+
+    init {
+        USERS()
+    }
+
 
 
     fun onEvent(event: userEvent){
@@ -55,6 +68,21 @@ class DataViewModel(private val dao: userdao): ViewModel() {
                 state(false)
                 Log.e("LogIn","LogIn is Failed")
             }
+
+        }
+
+    }
+
+
+   private fun USERS(){
+
+        viewModelScope.launch{
+            dao.allUserNames().let {
+                dao.allUserNames().forEach{
+                    _user.value.add(it)
+                }
+            }
+
 
         }
 
